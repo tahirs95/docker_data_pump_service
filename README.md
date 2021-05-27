@@ -1,5 +1,5 @@
 # Docker Data Pump service.
-A python service to push the count of running EC2 instances in a list of regions periodically to a web hook in a Docker container.
+A python service to push the count of running EC2 instances in a list of regions periodically to a webhook in a Docker container.
 
 **This application is written with Python 3.6.**
 
