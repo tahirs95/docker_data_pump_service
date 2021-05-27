@@ -12,7 +12,7 @@ aws_access_key_id=XXXXXXX
 aws_secret_access_key=XXXXXXX
 aws_region_name=XXXXXX
 webhook_url=https://webhook.site/xyz
-periodic_time_interval=30 (time in seconds)
+periodic_time_interval=30 (time in minutes)
 ```
 
 ## Build and Run
