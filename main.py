@@ -15,7 +15,7 @@ aws_access_key_id = os.environ["aws_access_key_id"]
 aws_secret_access_key = os.environ["aws_secret_access_key"]
 aws_region_name = os.environ["aws_region_name"]
 webhook_url = os.environ["webhook_url"]
-periodic_time_interval = int(os.environ["periodic_time_interval"])
+periodic_time_interval = int(os.environ["periodic_time_interval"]) * 60
 
 
 def error_handler(func=None, *, default=None):
