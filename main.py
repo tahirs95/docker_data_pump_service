@@ -1,14 +1,13 @@
 import boto3
-import functools
 import os
 import requests
 import json
 import time
-
-# importing module
 import logging
 
-# Creating an object
+from decorators import error_handler
+
+# Creating a logger object
 logging.getLogger().setLevel(logging.INFO)
 
 aws_access_key_id = os.environ["aws_access_key_id"]
@@ -16,24 +15,6 @@ aws_secret_access_key = os.environ["aws_secret_access_key"]
 aws_region_name = os.environ["aws_region_name"]
 webhook_url = os.environ["webhook_url"]
 periodic_time_interval = int(os.environ["periodic_time_interval"]) * 60
-
-
-def error_handler(func=None, *, default=None):
-    def inner_function_wrapper(func):
-        @functools.wraps(func)
-        def inner_function(*args, **kwargs):
-            try:
-                return func(*args, **kwargs)
-            except Exception as ex:
-                logging.error(f"{func.__name__}: {ex}")
-                return default
-
-        return inner_function
-
-    if func:
-        return inner_function_wrapper(func)
-    else:
-        return inner_function_wrapper
 
 
 def get_ec2_client(region):
@@ -89,8 +70,9 @@ def call_webhook(url, payload):
         logging.error("Failure!")
 
 
-while True:
-    ec2_instances_dict = get_ec2_instances()
-    if ec2_instances_dict:
-        call_webhook(webhook_url, ec2_instances_dict)
-    time.sleep(periodic_time_interval)
+if __name__ == "__main__":
+    while True:
+        ec2_instances_dict = get_ec2_instances()
+        if ec2_instances_dict:
+            call_webhook(webhook_url, ec2_instances_dict)
+        time.sleep(periodic_time_interval)
